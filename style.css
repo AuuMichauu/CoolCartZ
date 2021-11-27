@@ -1,0 +1,116 @@
+/* Variables section */
+:root {
+    /* Color Variables */
+    --bsc_clr_b1: hsl(210, 6%, 7%);
+    --bsc_clr_w1: hsl(0, 0%, 100%);
+    --bsc_clr_g1: rgb(156, 156, 156);
+    --bsc_clr_acc1: hsl(202, 68%, 73%);
+    /* Dimension variables */
+    --card_cnt_padding: 1rem;
+}
+
+*,
+*:before,
+*:after {
+    box-sizing: border-box;
+}
+html {
+    min-height: 100%; 
+    display: flex;
+    flex-direction: column;
+}
+
+body {
+    flex-grow: 1;
+    display: grid;
+    place-items: center;
+    line-height: 1.6;
+    background: var(--bsc_clr_g1);
+    font-family: 'Roboto', sans-serif;
+}
+
+.card {
+    color: var(--bsc_clr_w1);
+    background-image: url(./resources/images/futur_background.jpeg);
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    padding: 15rem 0 0;
+    max-width: 40ch; 
+    border-radius: 0.75rem;
+    overflow: hidden;
+    transition: transform ease 0.5s; /* setting for card scale transform animation */
+}
+
+.card:hover {
+    transform: scale(1.03); /* setting for card scale transform animation */
+}
+
+.card:hover .card-title::after {
+    transform: scaleX(1); /* setting for title underline animation */
+}
+
+.card:hover .card-content {
+    transform: translate(0); /* setting for content translate animation */
+}
+
+.card-content {
+    background: linear-gradient(
+        hsla(0, 0%, 0%, 0),
+        hsla(0, 0%, 0%, 0.4) 10%,
+        hsla(0, 0%, 0%, 1)
+        );
+    padding: var(--card_cnt_padding);
+    transform: translateY(60%); /* setting for content translate */
+    transform-origin: bottom; /* setting for content translate animation*/
+    transition: transform ease 0.5s; /* setting for content translate animation */
+}
+
+.card-content > *:not(.card-title) {
+    opacity: 0; /* setting for content opacity animation */
+    transition: opacity ease-in-out 0.3s; /* setting for content opacity animation */
+}
+
+.card:hover .card-content > * {
+    opacity: 1; /* setting for content opacity animation */
+}
+
+.card-title {
+    position: relative;
+    width: max-content;
+    max-width: 100%;
+}
+
+.card-title::after {
+    position: absolute;
+    display: block;
+    content: "";
+    background-color: var(--bsc_clr_acc1);
+    height: 3px;
+    width: calc(100% + var(--card_cnt_padding));
+    left: calc(var(--card_cnt_padding) * -1);
+    bottom: 0;
+    transform: scaleX(0); /* setting for title underline */
+    transition: transform ease-in-out 0.3s; /* setting for title underline */
+    transform-origin: left; /* setting for title underline */
+}
+
+.card-body {
+    color: hsla(0, 100%, 100%, 0.8)
+}
+
+.button {
+    cursor: pointer;
+    display: block;
+    width: max-content;
+    max-width: 100%;
+    text-decoration: none;
+    background-color: var(--bsc_clr_acc1);
+    padding: 0.5rem 1rem;
+    border-radius: 0.25rem;
+}
+
+.button:hover,
+.button:focus {
+    background-color: var(--bsc_clr_w1);
+}
