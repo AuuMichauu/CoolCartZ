@@ -3,29 +3,29 @@
     /* Color Variables */
     --bsc_clr_b1: hsl(210, 6%, 7%);
     --bsc_clr_w1: hsl(0, 0%, 100%);
-    --bsc_clr_g1: rgb(156, 156, 156);
     --bsc_clr_acc1: hsl(202, 68%, 73%);
     /* Dimension variables */
     --card_cnt_padding: 1rem;
 }
 
+/* Styling for mobiles w/o animations */
 *,
 *:before,
 *:after {
     box-sizing: border-box;
 }
 html {
-    min-height: 100%; 
-    display: flex;
+    min-height: 100%; /* Viewport hack */
+    display: flex; /* Viewport hack */
     flex-direction: column;
 }
 
 body {
-    flex-grow: 1;
+    flex-grow: 1; /* Viewport hack */
     display: grid;
     place-items: center;
     line-height: 1.6;
-    background: var(--bsc_clr_g1);
+    background: var(--bsc_clr_b1);
     font-family: 'Roboto', sans-serif;
 }
 
@@ -39,19 +39,6 @@ body {
     max-width: 40ch; 
     border-radius: 0.75rem;
     overflow: hidden;
-    transition: transform ease 0.5s; /* setting for card scale transform animation */
-}
-
-.card:hover {
-    transform: scale(1.03); /* setting for card scale transform animation */
-}
-
-.card:hover .card-title::after {
-    transform: scaleX(1); /* setting for title underline animation */
-}
-
-.card:hover .card-content {
-    transform: translate(0); /* setting for content translate animation */
 }
 
 .card-content {
@@ -61,18 +48,6 @@ body {
         hsla(0, 0%, 0%, 1)
         );
     padding: var(--card_cnt_padding);
-    transform: translateY(60%); /* setting for content translate */
-    transform-origin: bottom; /* setting for content translate animation*/
-    transition: transform ease 0.5s; /* setting for content translate animation */
-}
-
-.card-content > *:not(.card-title) {
-    opacity: 0; /* setting for content opacity animation */
-    transition: opacity ease-in-out 0.3s; /* setting for content opacity animation */
-}
-
-.card:hover .card-content > * {
-    opacity: 1; /* setting for content opacity animation */
 }
 
 .card-title {
@@ -90,9 +65,6 @@ body {
     width: calc(100% + var(--card_cnt_padding));
     left: calc(var(--card_cnt_padding) * -1);
     bottom: 0;
-    transform: scaleX(0); /* setting for title underline */
-    transition: transform ease-in-out 0.3s; /* setting for title underline */
-    transform-origin: left; /* setting for title underline */
 }
 
 .card-body {
@@ -110,7 +82,65 @@ body {
     border-radius: 0.25rem;
 }
 
-.button:hover,
-.button:focus {
-    background-color: var(--bsc_clr_w1);
+/* Styling with animations for browsers */
+@media not all and (hover: none) {
+    /* Scale up section */
+    .card {
+        transition: transform ease 0.5s; /* setting for card scale transform animation */
+    }
+    .card:hover,
+    .card:focus-within {
+        transform: scale(1.03); /* setting for card scale transform animation */
+    }
+
+    /* Underline appear section */
+    .card-title::after {
+        transform: scaleX(0); 
+        transition: transform ease-in-out 0.3s;
+        transform-origin: left; 
+    }
+
+    .card:hover .card-title::after,
+    .card:focus-within .card-title::after {
+        transform: scaleX(1);
+    }
+
+    /* Content slide up section */
+    .card-content {
+        transform: translateY(60%); /* If adding more text causes it to apear modify this value */
+        transform-origin: bottom;
+        transition: transform ease 0.5s;
+    }
+
+    .card:hover .card-content {
+        transform: translateY(0);
+        transition-delay: 0.3s;
+    }
+
+    .card:focus-within .card-content {
+        transform: translateY(0);
+        transition-delay: 0s;
+    }
+
+    /* Text opacity section */
+    .card-content > *:not(.card-title) {
+        opacity: 0;
+        transition: opacity ease-in-out 0.3s;
+    }
+
+    .card:hover .card-content > * {
+        opacity: 1;
+        transition-delay: 0.5s;
+    }
+
+    .card:focus-within .card-content > *  {
+        opacity: 1;
+        transition-delay: 0s;
+    }
+
+    /* Button animation styling */
+    .button:hover,
+    .button:focus {
+        background-color: var(--bsc_clr_w1);
+    }
 }
